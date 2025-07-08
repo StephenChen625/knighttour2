@@ -345,26 +345,26 @@ const KnightTourExplorer = () => {
         // 绘制格子标识符
         if (showCellMarkers) {
           const marker = getCellMarker(row, col);
-          // 在节点右上角显示小圆点标识
+          // 在节点右上角显示标识圆圈 - 调大尺寸
           ctx.beginPath();
-          ctx.arc(pos.x + 15, pos.y - 15, 8, 0, 2 * Math.PI);
+          ctx.arc(pos.x + 18, pos.y - 18, 12, 0, 2 * Math.PI);
           ctx.fillStyle = marker.color;
           ctx.fill();
           ctx.strokeStyle = "#000";
-          ctx.lineWidth = 1;
+          ctx.lineWidth = 1.5;
           ctx.stroke();
 
-          // 在小圆点中显示符号，确保对比度
+          // 在圆圈中显示符号，确保对比度 - 增大字体
           ctx.fillStyle = "#fff";
           ctx.strokeStyle = "#000";
-          ctx.lineWidth = 0.5;
+          ctx.lineWidth = 0.8;
           ctx.font =
-            'bold 9px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+            'bold 12px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
           ctx.textAlign = "center";
           ctx.textBaseline = "middle";
           // 先描边再填充，增加对比度
-          ctx.strokeText(marker.symbol, pos.x + 15, pos.y - 15);
-          ctx.fillText(marker.symbol, pos.x + 15, pos.y - 15);
+          ctx.strokeText(marker.symbol, pos.x + 18, pos.y - 18);
+          ctx.fillText(marker.symbol, pos.x + 18, pos.y - 18);
         }
 
         // 绘制内容
