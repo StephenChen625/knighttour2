@@ -687,7 +687,59 @@ const KnightTourExplorer = () => {
         </div>
       );
     }
-    return board;
+
+    // 计算棋盘总尺寸
+    const boardWidth = cols * cellSize;
+    const boardHeight = rows * cellSize;
+
+    // 生成路径SVG
+    const renderPathLines = () => {
+      if (!showLines || moveHistory.length < 2) return null;
+
+      const pathElements = [];
+      for (let i = 0; i < moveHistory.length - 1; i++) {
+        const [row1, col1] = moveHistory[i];
+        const [row2, col2] = moveHistory[i + 1];
+        
+        // 计算格子中心位置
+        const x1 = col1 * cellSize + cellSize / 2;
+        const y1 = row1 * cellSize + cellSize / 2;
+        const x2 = col2 * cellSize + cellSize / 2;
+        const y2 = row2 * cellSize + cellSize / 2;
+
+        pathElements.push(
+          <line
+            key={i}
+            x1={x1}
+            y1={y1}
+            x2={x2}
+            y2={y2}
+            stroke="#F97316"
+            strokeWidth="3"
+            strokeLinecap="round"
+            className="drop-shadow-sm"
+          />
+        );
+      }
+
+      return (
+        <svg
+          className="absolute inset-0 pointer-events-none"
+          width={boardWidth}
+          height={boardHeight}
+          style={{ zIndex: 10 }}
+        >
+          {pathElements}
+        </svg>
+      );
+    };
+
+    return (
+      <div className="relative inline-block">
+        <div>{board}</div>
+        {renderPathLines()}
+      </div>
+    );
   };
 
   const totalCells = validSquares.size;
@@ -754,7 +806,7 @@ const KnightTourExplorer = () => {
                     : "bg-amber-500 text-white"
                 }`}
               >
-                {graphMode === "move" ? "🚀 移动模式" : "🖱️ 拖拽模式"}
+                {graphMode === "move" ? "🚀 移动模式" : "🖱️拖拽模式"}
               </button>
             )}
 
